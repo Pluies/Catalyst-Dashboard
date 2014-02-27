@@ -1,8 +1,19 @@
 <% content_for :title do %>My super sweet dashboard<% end %>
+<script type='text/javascript'>
+$(function() {
+  Dashing.widget_base_dimensions = [370, 340];
+  Dashing.numColumns = 5;
+  Dashing.gridsterLayout('[{"col":1,"row":2,"size_x":2,"size_y":1},{"col":1,"row":1,"size_x":1,"size_y":1},{"col":3,"row":1,"size_x":1,"size_y":1},{"col":2,"row":1,"size_x":1,"size_y":1},{"col":1,"row":3,"size_x":1,"size_y":2},{"col":2,"row":3,"size_x":1,"size_y":1},{"col":3,"row":2,"size_x":2,"size_y":1}]');
+});
+</script>
 <div class="gridster">
   <ul>
     <li data-row="1" data-col="1" data-sizex="2" data-sizey="1">
       <div data-id="welcome" data-view="Text" data-title="Hello" data-text="This is your shiny new dashboard." data-moreinfo="Protip: You can drag the widgets around!"></div>
+    </li>
+
+    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+      <div data-id="catalyst" data-view="Image" data-title="Catalyst" data-image="/catalyst.png" data-width="330px"></div>
     </li>
 
     <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
