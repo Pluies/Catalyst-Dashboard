@@ -1,62 +1,74 @@
-<% content_for :title do %>My super sweet dashboard<% end %>
+<% content_for :title do %>Dashboard - Florent @ Catalyst<% end %>
 <script type='text/javascript'>
-$(function() {
-  Dashing.widget_base_dimensions = [320, 340];
-  Dashing.numColumns = 3;
+  $(function() {
+      Dashing.widget_base_dimensions = [320, 360];
+      Dashing.numColumns = 3;
 
-
-});
+      });
 </script>
 <div class="gridster">
-	<ul>
-		<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
-		<div data-id="catalyst"
-			data-view="Image"
-			data-title="Catalyst"
-			data-image="/catalyst.png"
-			data-width="250px">
-		</div>
-		</li>
+  <ul>
+    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+    <div data-id="catalyst"
+      data-view="Image"
+      data-title="Catalyst"
+      data-image="/catalyst.png"
+      data-width="250px">
+    </div>
+    </li>
 
-		<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
-		<div data-view="Clock"></div>
-		<i class="icon-time icon-background"></i>
-		</li>
+    <li data-row="1" data-col="1" data-sizex="2" data-sizey="3">
+    <div
+      data-id="wrs"
+      data-view="Wrlist"
+      data-unordered="true"
+      data-title="Work Requests"
+      data-moreinfo="opened & assigned to you">
+    </div>
+    </li>
 
-		<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
-		<div data-id="wrms_weekly"
-			data-view="Meter"
-			data-title="Weekly timesheets"
-			data-min="0"
-			data-max="40"></div>
-		</li>
+    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+    <div data-view="Clock"></div>
+    <i class="icon-time icon-background"></i>
+    </li>
 
-		<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
-		<div data-id="forecast" data-view="Forecast" data-title="Weather Forecast"></div>
-		</li>
+    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+    <div data-id="wrms_daily"
+      data-view="Meter"
+      data-title="Daily timesheets"
+      data-min="0"
+      data-max="8"></div>
+    </li>
 
-		<li data-row="1" data-col="1" data-sizex="1" data-sizey="2">
-		<div
-			data-id="wrs"
-			data-view="List"
-			data-unordered="true"
-			data-title="Work Requests"
-			data-moreinfo="opened & assigned to you">
-		</div>
-		</li>
+    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+    <div data-id="wrms_weekly"
+      data-view="Meter"
+      data-title="Weekly timesheets"
+      data-min="0"
+      data-max="40"></div>
+    </li>
 
-		<li data-row="1" data-col="1" data-sizex="2" data-sizey="1">
-		<div data-id="welcome" data-view="Text" data-title="Hello" data-text="This is your shiny new dashboard." data-moreinfo="Protip: You can drag the widgets around!"></div>
-		</li>
+    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+    <div data-id="forecast" data-view="Forecast" data-title="Weather Forecast"></div>
+    </li>
+
+    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+    <div data-id="bbb" data-view="JenkinsBuild" data-title="bbb" data-description="Broadbandbuy" data-min="0" data-max="100"></div>
+    </li>
+
+    <li data-row="1" data-col="1" data-sizex="2" data-sizey="1">
+    <div data-id="welcome" data-view="Text" data-title="Hello" data-text="This is your shiny new dashboard." data-moreinfo="Protip: You can drag the widgets around!"></div>
+    </li>
 
 
-		<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
-		<div data-id="valuation" data-view="Number" data-title="Current Valuation" data-moreinfo="In billions" data-prefix="$"></div>
-		</li>
+    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+    <div data-id="valuation" data-view="Number" data-title="Current Valuation" data-moreinfo="In billions" data-prefix="$"></div>
+    </li>
 
-		<li data-row="1" data-col="1" data-sizex="2" data-sizey="1">
-		<div data-id="convergence" data-view="Graph" data-title="Convergence" style="background-color:#ff9618"></div>
-		</li>
-	</ul>
-	<center><div style="font-size: 12px">Try this: curl -d '{ "auth_token": "YOUR_AUTH_TOKEN", "text": "Hey, Look what I can do!" }' \http://<%=request.host%>:<%=request.port%>/widgets/welcome</div></center>
+    <li data-row="1" data-col="1" data-sizex="2" data-sizey="1">
+    <div data-id="convergence" data-view="Graph" data-title="Convergence" style="background-color:#ff9618"></div>
+    </li>
+  </ul>
+  <center><div style="font-size: 12px">Try this: curl -d '{ "auth_token": "YOUR_AUTH_TOKEN", "text": "Hey, Look what I can do!" }' \http://<%=request.host%>:<%=request.port%>/widgets/welcome</div></center>
+
 </div>
