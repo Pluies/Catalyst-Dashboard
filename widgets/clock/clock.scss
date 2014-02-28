@@ -9,5 +9,11 @@ $background-color:  #dc5945;
 .widget-clock {
 
   background-color: $background-color;
-
+  h2 {
+    font-size: 70px;
+  }
 }
+.icon-background.icon-time {
+  margin-top: 50px;
+}
+
