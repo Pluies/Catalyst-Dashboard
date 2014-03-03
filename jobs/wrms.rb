@@ -114,9 +114,14 @@ class WRMS
 				link: "https://wrms/#{wr['request_id']}",
 				label: wr['brief'],
 				value: wr['status_desc'],
-				request_id: wr['request_id']
+				request_id: 'wr' + wr['request_id'].to_s
 			}
 		end
-		return wrs
+		return sort_by_status(wrs)
+	end
+	def sort_by_status wrs
+		statuses = ['New request', 'In Progress', 'Pending QA', 'Catalyst Testing', 'QA Approved']
+		sorted_wrs = wrs.sort{|a,b| statuses.find_index(a[:value]) <=> statuses.find_index(b[:value]) }
+		return sorted_wrs
 	end
 end
