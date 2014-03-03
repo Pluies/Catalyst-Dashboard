@@ -18,7 +18,7 @@ class Dashing.JenkinsBuild extends Dashing.Widget
 
   ready: ->
     meter = $(@node).find(".jenkins-build")
-    $(@node).fadeOut().css('background-color', @get('bgColor')).fadeIn()
+    $(@node).css('background-color', @get('bgColor'))
     meter.attr("data-bgcolor", meter.css("background-color"))
     meter.attr("data-fgcolor", meter.css("color"))
     meter.knob()
