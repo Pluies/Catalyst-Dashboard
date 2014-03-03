@@ -4,9 +4,7 @@
 $background-color:  #9c4274;
 
 $title-color:       rgba(255, 255, 255, 0.7);
-$moreinfo-color:    rgba(255, 255, 255, 0.3);
-
-$meter-background:  darken($background-color, 15%);
+$meter-background:  rgba(0,   0,   0,   0.2);
 
 // ----------------------------------------------------------------------------
 // Widget-meter styles
@@ -20,13 +18,17 @@ $meter-background:  darken($background-color, 15%);
     color: #fff;
     font-size: 40px !important;
   }
+  .postfix {
+    position: absolute;
+    margin-top: -92px;
+    font-weight: 600;
+    font-size: 1.2em;
+    width: 93%;
+    text-align: center;
+  }
 
   .title {
     color: $title-color;
-  }
-
-  .more-info {
-    color: $moreinfo-color;
   }
 
   .updated-at {
