@@ -1,0 +1,59 @@
+// ----------------------------------------------------------------------------
+// Sass declarations
+// ----------------------------------------------------------------------------
+$background-color:  #14A59A;
+$value-color:       #fff;
+
+$title-color:       rgba(255, 255, 255, 0.7);
+$label-color:       rgba(255, 255, 255, 0.7);
+$moreinfo-color:    rgba(255, 255, 255, 0.7);
+
+// ----------------------------------------------------------------------------
+// Widget-list styles
+// ----------------------------------------------------------------------------
+.widget-redmine {
+
+  background-color: $background-color;
+  vertical-align: top;
+  font-size: 0.8em;
+
+  .title {
+    color: $title-color;
+  }
+
+  ol, ul {
+    margin: 0 15px;
+    text-align: left;
+    color: $label-color;
+  }
+
+  li {
+    margin-bottom: 5px;
+  }
+
+  .list-nostyle {
+    list-style: none;
+  }
+
+  .id {
+    font-weight: 600;
+  }
+
+  .label {
+    color: $label-color;
+  }
+
+  .wrhead {
+    font-weight: 600;
+    color: $value-color;
+  }
+
+  .updated-at {
+    color: rgba(0, 0, 0, 0.3);
+  }
+
+  .more-info {
+    color: $moreinfo-color;
+  }
+
+}

@@ -1,7 +1,7 @@
 <% content_for :title do %>Dashboard - Florent @ Catalyst<% end %>
 <script type='text/javascript'>
   $(function() {
-      Dashing.widget_base_dimensions = [320, 360];
+      Dashing.widget_base_dimensions = [320, 350];
       Dashing.numColumns = 3;
 
       });
@@ -17,7 +17,7 @@
     </div>
     </li>
 
-    <li data-row="1" data-col="1" data-sizex="2" data-sizey="3">
+    <li data-row="1" data-col="1" data-sizex="2" data-sizey="2">
     <div
       data-id="wrs"
       data-view="Wrlist"
@@ -30,6 +30,15 @@
     <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
     <div data-view="Clock"></div>
     <i class="icon-time icon-background"></i>
+    </li>
+
+    <li data-row="1" data-col="1" data-sizex="2" data-sizey="1">
+    <div
+      data-id="redmine"
+      data-view="Redmine"
+      data-title="Redmine tickets"
+      data-moreinfo="opened & assigned to you">
+    </div>
     </li>
 
     <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
