@@ -13,6 +13,8 @@ $moreinfo-color:    rgba(255, 255, 255, 0.7);
 // ----------------------------------------------------------------------------
 .widget-wrlist {
 
+  padding-top: 0px !important;
+
   background-color: $background-color;
   vertical-align: top;
   font-size: 0.8em;
@@ -21,18 +23,10 @@ $moreinfo-color:    rgba(255, 255, 255, 0.7);
     color: $title-color;
   }
 
-  ol, ul {
+  ul {
     margin: 0 15px;
     text-align: left;
     color: $label-color;
-  }
-
-  ol {
-    list-style-position: inside;
-  }
-
-  li {
-    margin-bottom: 5px;
   }
 
   .list-nostyle {
@@ -41,11 +35,14 @@ $moreinfo-color:    rgba(255, 255, 255, 0.7);
 
   .label {
     color: $label-color;
+    width: 62%;
+    padding-bottom: 5px;
   }
 
   .wrhead {
     font-weight: 600;
     color: $value-color;
+    width: 37%;
   }
 
   .updated-at {
@@ -54,6 +51,11 @@ $moreinfo-color:    rgba(255, 255, 255, 0.7);
 
   .more-info {
     color: $moreinfo-color;
+    a {
+      text-decoration: underline;
+    }
   }
+
+  div { float: left; }
 
 }

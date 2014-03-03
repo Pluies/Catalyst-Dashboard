@@ -17,27 +17,25 @@
     </div>
     </li>
 
+    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+    <div data-view="Clock"></div>
+    <i class="icon-time icon-background"></i>
+    </li>
+
+    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+    <div data-id="forecast" data-view="Forecast" data-title="Weather Forecast"></div>
+    </li>
+
     <li data-row="1" data-col="1" data-sizex="2" data-sizey="2">
     <div
       data-id="wrs"
       data-view="Wrlist"
       data-unordered="true"
       data-title="Work Requests"
-      data-moreinfo="opened & assigned to you">
-    </div>
-    </li>
-
-    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
-    <div data-view="Clock"></div>
-    <i class="icon-time icon-background"></i>
-    </li>
-
-    <li data-row="1" data-col="1" data-sizex="2" data-sizey="1">
-    <div
-      data-id="redmine"
-      data-view="Redmine"
-      data-title="Redmine tickets"
-      data-moreinfo="opened & assigned to you">
+	 data-moreinfo="opened & assigned to you - "
+	 data-linktoall="https://wrms.catalyst.net.nz/report?r=request&v=5#_f=request_id%2Cstatus_desc%2Cbrief%2Crequester_id_fullname&_o=request_id&_d=desc&_s=200&_p=1&allocated_to=MY_USER_ID&last_status=A%2CB%2CE%2CD%2CI%2CK%2CL%2CN%2CQ%2CP%2CS%2CR%2CU%2CW%2CV%2CZ"
+	 data-linktoalllabel="see all requests"
+	 >
     </div>
     </li>
 
@@ -46,7 +44,15 @@
       data-view="Meter"
       data-title="Daily timesheets"
       data-min="0"
-      data-max="8"></div>
+	 data-max="8"
+	 data-postfix=" hours"
+	 data-moreinfo="Go timesheet!"
+	 data-moreinfolink="https://wrms.catalyst.net.nz/time_entry.php"
+	 ></div>
+    </li>
+
+    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+    <div data-id="bbb" data-view="JenkinsBuild" data-title="Broadbandbuy Jenkins" data-description="Broadbandbuy" data-min="0" data-max="100"></div>
     </li>
 
     <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
@@ -54,30 +60,23 @@
       data-view="Meter"
       data-title="Weekly timesheets"
       data-min="0"
-      data-max="40"></div>
-    </li>
-
-    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
-    <div data-id="forecast" data-view="Forecast" data-title="Weather Forecast"></div>
-    </li>
-
-    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
-    <div data-id="bbb" data-view="JenkinsBuild" data-title="Broadbandbuy Jenkins" data-description="Broadbandbuy" data-min="0" data-max="100"></div>
+	 data-max="40"
+	 data-postfix=" hours"
+	 ></div>
     </li>
 
     <li data-row="1" data-col="1" data-sizex="2" data-sizey="1">
-    <div data-id="welcome" data-view="Text" data-title="Hello" data-text="This is your shiny new dashboard." data-moreinfo="Protip: You can drag the widgets around!"></div>
+    <div
+      data-id="redmine"
+      data-view="Redmine"
+      data-title="Redmine tickets"
+      data-moreinfo="opened & assigned to you - "
+	 data-linktoall="https://redmine.catalyst.net.nz/issues?assigned_to_id=me&set_filter=1&sort=priority%3Adesc%2Cupdated_on%3Adesc"
+	 data-linktoalllabel="see all requests"
+	 >
+    </div>
     </li>
 
-
-    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
-    <div data-id="valuation" data-view="Number" data-title="Current Valuation" data-moreinfo="In billions" data-prefix="$"></div>
-    </li>
-
-    <li data-row="1" data-col="1" data-sizex="2" data-sizey="1">
-    <div data-id="convergence" data-view="Graph" data-title="Convergence" style="background-color:#ff9618"></div>
-    </li>
   </ul>
-  <center><div style="font-size: 12px">Try this: curl -d '{ "auth_token": "YOUR_AUTH_TOKEN", "text": "Hey, Look what I can do!" }' \http://<%=request.host%>:<%=request.port%>/widgets/welcome</div></center>
 
 </div>
