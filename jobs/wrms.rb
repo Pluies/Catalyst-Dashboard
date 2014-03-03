@@ -1,13 +1,16 @@
 require 'net/https'
 require 'json'
 require 'date'
+require 'yaml'
 
+configpath = '/home/'+ENV['USER']+'/.dashing.yaml'
+config = YAML.load_file(configpath)['wrms'] or die("Cannot load YAML config at #{configpath}")
 # wrms id
-user_id="2583"
+user_id=config['user_id']
 #wrms password
-flubber="bluffer"
+flubber=config['password']
 
-$WRMS_DEBUG=true
+$WRMS_DEBUG=false
 
 SCHEDULER.every '1m', :first_in => 0 do |job|
 	wrms = WRMS.new user_id
