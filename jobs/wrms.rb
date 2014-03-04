@@ -9,6 +9,7 @@ config = YAML.load_file(configpath)['wrms'] or die("Cannot load YAML config at #
 user_id=config['user_id']
 #wrms password
 flubber=config['password']
+$wrms_server = "wrms.catalyst.net.nz"
 
 $WRMS_DEBUG=false
 
@@ -31,12 +32,12 @@ end
 class WRMS
 	def initialize(user_id)
 		@user_id = user_id
-		@http = Net::HTTP.new("wrms.catalyst.net.nz", 443)
+		@http = Net::HTTP.new($wrms_server, 443)
 		@http.use_ssl = true
 		@http.verify_mode = OpenSSL::SSL::VERIFY_PEER
 		@http.set_debug_output($stdout) if $WRMS_DEBUG
 	end
-	def login(user_id,password)
+	def login(user_id, password)
 		begin
 			request = Net::HTTP::Post.new("/api2/login")
 			request.set_form_data({'user_id' => user_id, 'password' => password})
@@ -111,7 +112,7 @@ class WRMS
 		wrs = []
 		r['response']['results'].each do |wr|
 			wrs << {
-				link: "https://wrms/#{wr['request_id']}",
+				link: "https://#{$wrms_server}/#{wr['request_id']}",
 				label: wr['brief'],
 				value: wr['status_desc'],
 				request_id: 'wr' + wr['request_id'].to_s
