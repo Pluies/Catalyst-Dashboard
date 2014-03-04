@@ -1,4 +1,7 @@
-<h1 class="title" data-bind="title"></h1>
+<h1 class="title">
+  <span data-bind="title"></span>
+  <span data-bind="count"></span>
+</h1>
 
 <ul class="list-nostyle">
   <li data-foreach-item="items">
@@ -7,6 +10,12 @@
       <span data-bind="item.request_id"></span> - <span data-bind="item.value"></span>
     </div>
     <div class="label" data-bind="item.label"></div>
+  </a>
+  </li>
+  <li class="more" data-showif="clipped">
+  <a data-bind-href="linktoall">
+    <div class="wrhead">&nbsp;</div>
+    <div class="label">&#8674; More</div>
   </a>
   </li>
 </ul>

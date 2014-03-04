@@ -9,7 +9,9 @@ config = YAML.load_file(configpath)['wrms'] or die("Cannot load YAML config at #
 user_id=config['user_id']
 #wrms password
 flubber=config['password']
-$wrms_server = "wrms.catalyst.net.nz"
+$max_wrs=config['max_wrs']
+$server=config['server']
+$linktoall=config['linktoall']
 
 $WRMS_DEBUG=false
 
@@ -25,14 +27,26 @@ SCHEDULER.every '1m', :first_in => 0 do |job|
 	weekly_time, weekly_good = wrms.weekly_timesheet
 	send_event('wrms_weekly', { value: weekly_time, performance: weekly_good })
 
-	send_event('wrs', { items: wrms.your_wrs })
+	wrs, clipped = wrms.your_wrs
+	count = if clipped
+			   "latest #{wrs.count}, clipped"
+		   else
+			   wrs.count.to_s
+		   end
+	count = "(#{count})"
+	send_event('wrs', {
+		items: wrs,
+		clipped: clipped,
+		count: count,
+		linktoall: $linktoall
+	})
 end
 
 
 class WRMS
 	def initialize(user_id)
 		@user_id = user_id
-		@http = Net::HTTP.new($wrms_server, 443)
+		@http = Net::HTTP.new($server, 443)
 		@http.use_ssl = true
 		@http.verify_mode = OpenSSL::SSL::VERIFY_PEER
 		@http.set_debug_output($stdout) if $WRMS_DEBUG
@@ -55,15 +69,17 @@ class WRMS
 
 	def daily_timesheet
 		time = timesheet('d','d')
-		target = DateTime.now.hour - 9
+		target = [DateTime.now.hour - 9, 8].min
 		p "DEBUG: weekly time #{time}, target #{target}, performance #{perf(time, target)}" if $WRMS_DEBUG
 		return time, perf(time,target)
 	end
+
 	def weekly_timesheet
 		time   = timesheet('w','w')
-		target = (Date.today.cwday - 1) * 8
+		target = [(Date.today.cwday - 1) * 8, 40].min
 		return time, perf(time,target)
 	end
+
 	def perf(time, target)
 		if time >= target
 			return 'good'
@@ -73,6 +89,7 @@ class WRMS
 			return 'bad'
 		end
 	end
+
 	def timesheet(from,to)
 		request = Net::HTTP::Get.new("/api2/report?" +  URI.encode_www_form({
 			'created_date'=>from+':'+to,
@@ -96,11 +113,12 @@ class WRMS
 
 	def your_wrs
 		return unless @cookie
+		clipped = false
 		request = Net::HTTP::Get.new("/api2/report?" +  URI.encode_www_form({
 			'allocated_to'=>'MY_USER_ID',
 			'last_status'=>'A,B,E,I,K,L,O,N,Q,P,S,R,U,W,V,Z',
 			'report_type'=>'request',
-			'page_size'=>'200',
+			'page_size'=>'500',
 			'page_no'=>'1',
 			'display_fields'=>'request_id,status_desc,brief',
 			'order_by'=>'request_id',
@@ -112,16 +130,21 @@ class WRMS
 		wrs = []
 		r['response']['results'].each do |wr|
 			wrs << {
-				link: "https://#{$wrms_server}/#{wr['request_id']}",
+				link: "https://#{$server}/#{wr['request_id']}",
 				label: wr['brief'],
 				value: wr['status_desc'],
 				request_id: 'wr' + wr['request_id'].to_s
 			}
 		end
-		return sort_by_status(wrs)
+		if wrs.size > $max_wrs
+			wrs = wrs[0...$max_wrs]
+			clipped = true
+		end
+		return sort_by_status(wrs), clipped
 	end
+
 	def sort_by_status wrs
-		statuses = ['New request', 'In Progress', 'Pending QA', 'Catalyst Testing', 'QA Approved']
+		statuses = ['New request', 'In Progress', 'Pending QA', 'Catalyst Testing', 'QA Approved', '']
 		sorted_wrs = wrs.sort{|a,b| statuses.find_index(a[:value]) <=> statuses.find_index(b[:value]) }
 		return sorted_wrs
 	end
