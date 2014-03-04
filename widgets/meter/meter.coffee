@@ -1,15 +1,7 @@
 class Dashing.Meter extends Dashing.Widget
 
   @accessor 'value', Dashing.AnimatedValue
-  @accessor 'bgColor', ->
-    if @get('performance') == "good"
-      "#96BF48"
-    else if @get('performance') == "meh"
-      "#ff9618"
-    else if @get('performance') == "bad"
-      "#C70015"
-    else
-      "#999"
+  @accessor 'bgColor'
 
   constructor: ->
     super
@@ -24,10 +16,18 @@ class Dashing.Meter extends Dashing.Widget
     meter.knob()
 
   onData: (data) ->
+    console.log('meter data received... performance:' + data.performance)
     if data.currentResult isnt data.lastResult
       $(@node).fadeOut().css('background-color', @get('bgColor')).fadeIn()
-    if data.performance isnt 'good'
-      $(@node).find('.more-info').show()
-    else
+    if data.performance is 'good'
       $(@node).find('.more-info').hide()
+      @set 'bgColor', "#96BF48"
+    else if data.performance is 'meh'
+      $(@node).find('.more-info').show()
+      @set 'bgColor', "#ffd900"
+    else if data.performance is 'bad'
+      $(@node).find('.more-info').show()
+      @set 'bgColor', "#C70015"
+    $(@node).css('background-color', @get('bgColor'))
+
 
