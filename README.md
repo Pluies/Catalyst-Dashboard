@@ -1,8 +1,8 @@
-# Introduction
+## Introduction
 
 A [Dashing](http://shopify.github.com/dashing)-based dashboard 
 
-# Installation
+## Installation
 
 This assumes you have Ruby (1.9+) and RubyGems installed.
 
@@ -13,7 +13,7 @@ This assumes you have Ruby (1.9+) and RubyGems installed.
 
 Check out http://shopify.github.com/dashing for more information.
 
-# Configuration
+## Configuration
 
 In order to use the Redmine and WRMS plugins, you will need a configuration file holding your passwords:
 
@@ -34,13 +34,13 @@ This file should have the following syntax:
       username: florent
       password: password
 
-# Starting your dashboard    
+## Starting your dashboard    
 
     dashing start
 
-Your dashboard should now be accessible at http://localhost:3030/dashing
+Your dashboard should now be accessible at: [http://localhost:3030/dashing](http://localhost:3030/dashing)
 
-# License
+## License
 
 These modifications, like Dashing itself, are released under the MIT license.
 
