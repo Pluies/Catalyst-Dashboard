@@ -10,7 +10,7 @@ This assumes you have Ruby (1.9+), Git, RubyGems, g++ and a javascript runtime i
 
     sudo apt-get install ruby1.9.1-full git nodejs g++
 
-Install the required gems:
+Install the required gems (NB: if it gives you a permission error, try sudo):
 
     gem install bundler dashing
 
