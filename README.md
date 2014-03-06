@@ -32,8 +32,8 @@ In order to use the Redmine and WRMS plugins, you will need a configuration file
 This file should have the following syntax:
 
     wrms:
-      user_id: 2583
-      password: password
+      user_id: 2583 # From https://wrms.catalyst.net.nz/whoami.php
+      auth_key: 7bb7c5af1491da1a988lce280de67807 # Your 'session_id' from https://wrms.catalyst.net.nz/api2/explorer
       server: wrms.catalyst.net.nz
       max_wrs: 15
       linktoall: https://wrms.catalyst.net.nz/report?r=request&v=5#_f=request_id%2Cstatus_desc%2Cbrief%2Crequester_id_fullname&_o=request_id&_d=desc&_s=200&_p=1&allocated_to=MY_USER_ID&last_status=A%2CB%2CE%2CD%2CI%2CK%2CL%2CN%2CQ%2CP%2CS%2CR%2CU%2CW%2CV%2CZ

@@ -4,11 +4,12 @@ require 'date'
 require 'yaml'
 
 configpath = '/home/'+ENV['USER']+'/.dashing.yaml'
-config = YAML.load_file(configpath)['wrms'] or die("Cannot load YAML config at #{configpath}")
+config = YAML.load_file(configpath)['wrms'] or raise("Cannot load YAML config at #{configpath}")
 # wrms id
 user_id=config['user_id']
 #wrms password
-flubber=config['password']
+#flubber=config['password']
+auth_key=config['auth_key']
 $max_wrs=config['max_wrs']
 $server=config['server']
 $linktoall=config['linktoall']
@@ -16,8 +17,7 @@ $linktoall=config['linktoall']
 $WRMS_DEBUG=false
 
 SCHEDULER.every '1m', :first_in => 0 do |job|
-	wrms = WRMS.new user_id
-	wrms.login(user_id,flubber)
+	wrms = WRMS.new(user_id, auth_key)
 	p wrms.cookie if $WRMS_DEBUG
 	return unless wrms.cookie
 
@@ -44,26 +44,16 @@ end
 
 
 class WRMS
-	def initialize(user_id)
+	def initialize(user_id, auth_key)
 		@user_id = user_id
 		@http = Net::HTTP.new($server, 443)
 		@http.use_ssl = true
 		@http.verify_mode = OpenSSL::SSL::VERIFY_PEER
 		@http.set_debug_output($stdout) if $WRMS_DEBUG
+        @cookie = 'wrms3_auth='+auth_key
 	end
-	def login(user_id, password)
-		begin
-			request = Net::HTTP::Post.new("/api2/login")
-			request.set_form_data({'user_id' => user_id, 'password' => password})
-			response = @http.request(request)
-			response_parsed = JSON.parse(response.body)
-			@cookie = response_parsed["response"]["auth_cookie_name"] + '=' + response_parsed["response"]["auth_cookie_value"]
-		rescue
-			print 'Authentication to WRMS failed - please check your user_id and password'
-			@cookie = false
-		end
-	end
-	def cookie
+
+    def cookie
 		return @cookie
 	end
 
