@@ -36,6 +36,10 @@ This file should have the following syntax:
       username: florent
       password: password
 
+Replace the passwords, username and WRMS user_id with your own information.
+
+NB: keeping passwords in a plain-text file is not a great solution, but we need them to access the APIs and I haven't found a better solution yet. Please contact me or submit a pull request if you know of a better way to do it.
+
 ## Starting your dashboard    
 
     dashing start
