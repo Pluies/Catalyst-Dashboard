@@ -6,9 +6,9 @@ A [Dashing](http://shopify.github.com/dashing)-based dashboard
 
 ## Installation
 
-This assumes you have Ruby (1.9+), Git, RubyGems and a javascript runtime installed. For example on Ubuntu:
+This assumes you have Ruby (1.9+), Git, RubyGems, g++ and a javascript runtime installed. For example on Ubuntu:
 
-    sudo apt-get install ruby1.9.1-full git nodejs
+    sudo apt-get install ruby1.9.1-full git nodejs g++
 
 Install the required gems:
 
