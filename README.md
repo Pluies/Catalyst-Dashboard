@@ -12,7 +12,7 @@ This assumes you have Ruby (1.9+) and RubyGems installed. For example on Ubuntu:
 
 Install the required gems:
 
-    gem install bundler dashing
+    gem install bundler dashing therubyracer
 
 Now to install this dashboard:
 
