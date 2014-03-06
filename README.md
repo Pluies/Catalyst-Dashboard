@@ -6,9 +6,16 @@ A [Dashing](http://shopify.github.com/dashing)-based dashboard
 
 ## Installation
 
-This assumes you have Ruby (1.9+) and RubyGems installed.
+This assumes you have Ruby (1.9+) and RubyGems installed. For example on Ubuntu:
 
-    gem install dashing
+    sudo apt-get install ruby1.9.1-full git
+
+Install the required gems:
+
+    gem install bundler dashing
+
+Now to install this dashboard:
+
     git clone https://github.com/Pluies/Catalyst-Dashboard
     cd Catalyst-Dashboard
     bundle
