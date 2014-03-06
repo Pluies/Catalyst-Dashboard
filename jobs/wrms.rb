@@ -148,6 +148,7 @@ class WRMS
 			'Catalyst Testing',
 			'Failed Testing',
 			'QA Approved',
+ 			'Ready for System Test',
 			'Pending QA',
 			'Testing/Signoff',
 			'Needs Documenting',
