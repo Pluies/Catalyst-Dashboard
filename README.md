@@ -2,6 +2,8 @@
 
 A [Dashing](http://shopify.github.com/dashing)-based dashboard 
 
+![screenshot](https://github.com/Pluies/Catalyst-Dashboard/blob/master/public/screenshot.png?raw=true)
+
 ## Installation
 
 This assumes you have Ruby (1.9+) and RubyGems installed.
