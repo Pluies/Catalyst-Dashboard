@@ -144,7 +144,31 @@ class WRMS
 	end
 
 	def sort_by_status wrs
-		statuses = ['New request', 'In Progress', 'Pending QA', 'Catalyst Testing', 'QA Approved', '']
+		# Status list for ordering purposes
+		statuses = [
+			'New request',
+			'Allocated',
+			'Quoted',
+			'Quote Approved',
+			'In Progress',
+			'Need Info',
+			'Provide Feedback',
+			'Development Complete',
+			'Ready for Staging',
+			'Catalyst Testing',
+			'Failed Testing',
+			'QA Approved',
+			'Pending QA',
+			'Testing/Signoff',
+			'Needs Documenting',
+			'Reviewed',
+			'Production Ready',
+			'Ongoing Maintenance',
+			'Blocked',
+			'On Hold',
+			'Cancelled',
+			'Finished'
+		]
 		sorted_wrs = wrs.sort{|a,b| statuses.find_index(a[:value]) <=> statuses.find_index(b[:value]) }
 		return sorted_wrs
 	end
