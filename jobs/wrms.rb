@@ -6,40 +6,50 @@ require 'yaml'
 configpath = '/home/'+ENV['USER']+'/.dashing.yaml'
 config = YAML.load_file(configpath)['wrms'] or raise("Cannot load YAML config at #{configpath}")
 # wrms id
-user_id=config['user_id']
-auth_key=config['auth_key']
+$user_id=config['user_id']
+$auth_key=config['auth_key']
 # Support for old-style password-based configuration
-flubber=config['password'] if not auth_key
+$flubber=config['password']
 $max_wrs=config['max_wrs']
 $server=config['server']
 $linktoall=config['linktoall']
 
-$WRMS_DEBUG=false
+$log = Logger.new(STDOUT)
+$log.level = Logger::WARN
 
 SCHEDULER.every '1m', :first_in => 0 do |job|
-	wrms = WRMS.new(user_id, auth_key, flubber)
-	p wrms.cookie if $WRMS_DEBUG
+	tries ||= 2
+	wrms = WRMS.new($user_id, $auth_key, $flubber)
+	$log.debug "Using cookie: #{wrms.cookie}"
 	return unless wrms.cookie
 
-	daily_time, daily_good = wrms.daily_timesheet
-	send_event('wrms_daily',  { value: daily_time, performance: daily_good })
+	begin
+		daily_time, daily_good = wrms.daily_timesheet
+		send_event('wrms_daily',  { value: daily_time, performance: daily_good })
 
-	weekly_time, weekly_good = wrms.weekly_timesheet
-	send_event('wrms_weekly', { value: weekly_time, performance: weekly_good })
+		weekly_time, weekly_good = wrms.weekly_timesheet
+		send_event('wrms_weekly', { value: weekly_time, performance: weekly_good })
 
-	wrs, clipped = wrms.your_wrs
-	count = if clipped
-			   "latest #{wrs.count}, clipped"
-		   else
-			   wrs.count.to_s
-		   end
-	count = "(#{count})"
-	send_event('wrs', {
-		items: wrs,
-		clipped: clipped,
-		count: count,
-		linktoall: $linktoall
-	})
+		wrs, clipped = wrms.your_wrs
+		count = if clipped
+				   "latest #{wrs.count}, clipped"
+			   else
+				   wrs.count.to_s
+			   end
+		count = "(#{count})"
+		send_event('wrs', {
+			items: wrs,
+			clipped: clipped,
+			count: count,
+			linktoall: $linktoall
+		})
+	rescue
+		# If we run into an issue, assume can't log in through auth_key, try with pw
+		$log.warn 'auth_key authentication failed, trying with password'
+		wrms = WRMS.new $user_id, nil, $flubber
+		tries = tries - 1
+		retry if tries > 0
+	end
 end
 
 
@@ -49,10 +59,12 @@ class WRMS
 		@http = Net::HTTP.new($server, 443)
 		@http.use_ssl = true
 		@http.verify_mode = OpenSSL::SSL::VERIFY_PEER
-		@http.set_debug_output($stdout) if $WRMS_DEBUG
+		@http.set_debug_output($stdout) if $log.debug?
 		if auth_key
+			$log.info 'Authenticating using auth_key'
 			@cookie = 'wrms3_auth='+auth_key
 		else
+			$log.info 'Authenticating using password'
 			self.login(user_id, password)
 		end
 	end
@@ -65,7 +77,7 @@ class WRMS
 			response_parsed = JSON.parse(response.body)
 			@cookie = response_parsed["response"]["auth_cookie_name"] + '=' + response_parsed["response"]["auth_cookie_value"]
 		rescue
-			print 'Authentication to WRMS failed - please check your user_id and password'
+			$log.error 'Authentication to WRMS failed - please check your user_id and password'
 			@cookie = false
 		end
 	end
@@ -77,13 +89,14 @@ class WRMS
 	def daily_timesheet
 		time = timesheet('d','d')
 		target = [DateTime.now.hour - 9, 8].min
-		p "DEBUG: weekly time #{time}, target #{target}, performance #{perf(time, target)}" if $WRMS_DEBUG
+		$log.debug "Daily time #{time}, target #{target}, performance #{perf(time, target)}"
 		return time, perf(time,target)
 	end
 
 	def weekly_timesheet
 		time   = timesheet('w','w')
 		target = [(Date.today.cwday - 1) * 8, 40].min
+		$log.debug "Weekly time #{time}, target #{target}, performance #{perf(time, target)}"
 		return time, perf(time,target)
 	end
 
