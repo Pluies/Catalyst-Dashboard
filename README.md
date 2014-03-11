@@ -35,6 +35,7 @@ This file should have the following syntax:
       server: wrms.catalyst.net.nz
       user_id: 2583 # From https://wrms.catalyst.net.nz/whoami.php
       auth_key: 7bb7c5af1491da1a988lce280de67807 # Your 'session_id' from https://wrms.catalyst.net.nz/api2/explorer - NB you might need to log out and log back in again
+      password: password # Deprecated, you should use auth_key. However if the auth_key fails, it will try to use user_id/password auth
       max_wrs: 15
       linktoall: https://wrms.catalyst.net.nz/report?r=request&v=5#_f=request_id%2Cstatus_desc%2Cbrief%2Crequester_id_fullname&_o=request_id&_d=desc&_s=200&_p=1&allocated_to=MY_USER_ID&last_status=A%2CB%2CE%2CD%2CI%2CK%2CL%2CN%2CQ%2CP%2CS%2CR%2CU%2CW%2CV%2CZ
 
