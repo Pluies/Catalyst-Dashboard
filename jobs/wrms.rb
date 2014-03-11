@@ -17,7 +17,7 @@ $linktoall=config['linktoall']
 $log = Logger.new(STDOUT)
 $log.level = Logger::WARN
 
-SCHEDULER.every '1m', :first_in => 0 do |job|
+SCHEDULER.every '1m', :first_in => 1, :discard_past => true do |job|
 	tries ||= 2
 	wrms = WRMS.new($user_id, $auth_key, $flubber)
 	$log.debug "Using cookie: #{wrms.cookie}"

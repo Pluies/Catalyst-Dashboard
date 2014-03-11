@@ -20,7 +20,7 @@ class Issues < ActiveResource::Base
 	self.format = :xml
 end
 
-SCHEDULER.every '1m', :first_in => 0 do |job|
+SCHEDULER.every '1m', :first_in => 1, :discard_past => true do |job|
 	issues = Issues.find(:all, :params => {:assigned_to_id => 'me'})
 	issues_array = []
 	issues.each do |i|
