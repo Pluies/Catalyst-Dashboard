@@ -43,7 +43,7 @@ end
 
 job_mapping.each do |title, jenkins_project|
   current_status = nil
-  SCHEDULER.every '30s', :first_in => 0 do |job|
+  SCHEDULER.every '30s', :discard_past => true, :first_in => 1 do |job|
     last_status = current_status
     build_info = get_json_for_job(jenkins_project[:job])
     current_status = build_info["result"]
