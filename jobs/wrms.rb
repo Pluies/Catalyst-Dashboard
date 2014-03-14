@@ -128,7 +128,7 @@ class WRMS
 		r['response']['results'].each do |ts|
 			total += ts['hours']
 		end
-		return total
+		return total.round(2)
 	end
 
 	def your_wrs
