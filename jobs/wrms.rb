@@ -126,7 +126,7 @@ class WRMS
 		r = JSON.parse(response.body)
 		total = 0.0
 		r['response']['results'].each do |ts|
-			total += ts['hours']
+			total += ts['hours'].to_f
 		end
 		return total.round(2)
 	end
